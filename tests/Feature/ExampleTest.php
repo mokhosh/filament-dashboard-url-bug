@@ -1,7 +1,12 @@
 <?php
 
-it('returns a successful response', function () {
-    $response = $this->get('/');
+use App\Models\User;
+use Filament\Facades\Filament;
+use function Pest\Laravel\be;
 
-    $response->assertStatus(200);
+it('returns proper dashboard url', function () {
+    be(User::factory()->create());
+
+    expect(Filament::getPanel('app')->getUrl())
+        ->toBe(url('/app'));
 });
